@@ -1,3 +1,9 @@
-FROM sabayon/base-amd64
-RUN ["equo", "install", "-q", "dev-lang/python:2.7", "dev-lang/python:3.5", "dev-lang/python:3.6", "dev-lang/python:3.7", "dev-lang/python:3.8", "dev-python/pypy", "dev-python/pypy3", "dev-python/tox"]
+FROM gentoo/portage AS repo
+FROM gentoo/stage3-amd64 AS builder
+
+COPY --from=repo /var/db/repos/gentoo /var/db/repos/gentoo
+RUN echo '*/* ~amd64' >> /etc/portage/package.accept_keywords \
+ && echo '*/* PYTHON_TARGETS: -python2_7' >> /etc/portage/package.use/python \
+ && emerge -1vt --jobs dev-python/tox app-arch/lzip \
+ && emerge -1v --jobs --nodeps dev-lang/python:{2.7,3.5,3.6,3.7,3.8} dev-python/pypy{,3}-bin
 CMD ["tox"]
