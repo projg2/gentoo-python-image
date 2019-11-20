@@ -1,5 +1,5 @@
 FROM gentoo/portage AS repo
-FROM gentoo/stage3-amd64 AS builder
+FROM gentoo/stage3-amd64-nomultilib AS builder
 
 COPY --from=repo /var/db/repos/gentoo /var/db/repos/gentoo
 RUN echo '*/* ~amd64' >> /etc/portage/package.accept_keywords \
