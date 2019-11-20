@@ -8,7 +8,4 @@ RUN echo '*/* ~amd64' >> /etc/portage/package.accept_keywords \
  && emerge -1v --jobs --nodeps dev-lang/python:{2.7,3.5,3.6,3.7,3.8} dev-python/pypy{,3}-bin \
  && rm -rf /var/db/repos/gentoo
 
-FROM scratch
-COPY --from=builder / /
-
 CMD ["tox"]
