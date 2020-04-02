@@ -11,7 +11,7 @@ RUN echo '*/* ~amd64' >> /etc/portage/package.accept_keywords \
  && printf '[python]\nlocation = /var/db/repos/python\n' >> /etc/portage/repos.conf \
  && emerge -1vnt --jobs dev-python/tox app-arch/lzip dev-vcs/git \
     dev-python/pypy{,3}-exe-bin dev-db/sqlite \
- && emerge -1v --jobs --nodeps dev-lang/python:{2.7,3.4,3.5,3.6,3.7,3.8} \
+ && emerge -1v --jobs --nodeps dev-lang/python:{2.7,3.4,3.5,3.6,3.7,3.8,3.9} \
     dev-python/pypy{,3} \
  && rm -r /var/db/repos/*
 
