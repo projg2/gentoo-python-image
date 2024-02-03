@@ -2,7 +2,9 @@ FROM gentoo/stage3:amd64-nomultilib-openrc
 
 RUN echo '*/* ~amd64' >> /etc/portage/package.accept_keywords/base.conf \
  && echo '*/* full-stdlib sqlite' >> /etc/portage/package.use/python \
+ && echo 'dev-lang/python debug pgo' >> /etc/portage/package.use/python \
  && echo 'dev-vcs/git -perl' >> /etc/portage/package.use/git \
+ && echo 'CFLAGS="${CFLAGS} -flto"' >> /etc/portage/make.conf \
  && wget --progress=dot:mega -O - https://github.com/gentoo-mirror/gentoo/archive/master.tar.gz | tar -xz \
  && mv gentoo-master /var/db/repos/gentoo \
  && emerge -1vnt --jobs dev-python/tox app-arch/lzip dev-vcs/git \
